@@ -1,8 +1,7 @@
-export type MesUser = {
+export declare interface MesUser {
     userId: string,
-    userName: string,
-    userEmail: string,
-    dept: string
-    permission: string,
-    
+    userName:  string | null,
+    userEmail:  string | null,
+    dept:  string | null,
+    permission:  string | null,
 }
