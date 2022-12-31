@@ -1,14 +1,20 @@
 <script setup lang="ts">
+import router from "@/router";
 import { useUserStore } from "@/stores/user";
+import { ref } from "vue"
 
-const userName: string = "adad";
-const userPassword: string = "dad";
+const userName = ref("");
+const userPassword  = ref("");
 const userStore = useUserStore();
 
 function DoLogin(payload: MouseEvent) {
   payload.preventDefault();
-  userStore.DoLoginByEmailPassword(userName, userPassword);
+  console.log(`User ${userName.value} `)
+  userStore.DoLoginByEmailPassword(userName.value, userPassword.value);
 }
+router.push({
+  name: "home"
+})
 </script>
 
 <template>
@@ -23,7 +29,7 @@ function DoLogin(payload: MouseEvent) {
           type="text"
           name="userName"
           id="userName"
-          :value="userName"
+          v-model="userName"
           required
         />
         <div>Password:</div>
@@ -31,7 +37,7 @@ function DoLogin(payload: MouseEvent) {
           type="password"
           name="userPassword"
           id="userPassword"
-          :value="userPassword"
+          v-model="userPassword"
           required
         />
         <div>

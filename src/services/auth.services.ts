@@ -1,13 +1,26 @@
 import { firebaseAuth } from "@/config/fireabase.config";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import type { MesUser } from "@/config/MesUser";
+import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 
-export class FirebaseService {
-  constructor() {}
+export interface AuthService {
+  ProviderName: string
 
-  async DoLoginByEmailPassword(username: string, password: string) {
-      let user = await signInWithEmailAndPassword(firebaseAuth,username, password)
-      console.log(user);
+  DoLoginByEmailPassword(username: string, password: string): Promise<any>
+
+  DoLogout(): void
+}
+
+export class FirebaseService implements AuthService {
+  ProviderName: string = "Firebase";
+  constructor() {
   }
 
-  async DoLogout() {}
+  async DoLoginByEmailPassword(username: string, password: string) {
+    var user = await signInWithEmailAndPassword(firebaseAuth, username, password)
+    return user.user
+  }
+
+  async DoLogout() {
+    signOut(firebaseAuth)
+  }
 }

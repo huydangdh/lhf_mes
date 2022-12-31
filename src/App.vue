@@ -18,10 +18,10 @@ userStore.init();
 
   <div class="wrapper">
     <HelloWorld msg="MES_SYSTEM" />
-    <nav>
+    <div>
       <RouterLink to="/">Home</RouterLink>
-      <RouterLink to="/login">Login</RouterLink>
-    </nav>
+      <RouterLink v-if="!userStore.getUser().value" to="/login">Login</RouterLink>
+    </div>
   </div>
   <RouterView />
 </template>

@@ -18,20 +18,19 @@ function DoTestClearUser(payload: MouseEvent) {
   userStore.clearUser();
 }
 
+function DoTestLogout(){
+  userStore.Logout()
+}
+
 </script>
 
 <template>
-  <WelcomeItem>
-    <template #icon>
-      <DocumentationIcon />
-    </template>
-    <template #heading>User</template>
     <div>
         {{userStore.getUser()}}
     </div>
     <div>
       <button v-on:click="DoTestSetUser">DoTestSetUser()</button>
       <button v-on:click="DoTestClearUser">DoTestClearUser()</button>
-    </div>
-  </WelcomeItem>
+     <button v-on:click="DoTestLogout">DoLogoutUser()</button>
+ </div>
 </template>

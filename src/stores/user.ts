@@ -3,12 +3,12 @@ import { defineStore } from "pinia";
 import type { MesUser } from "@/config/MesUser";
 import { onAuthStateChanged } from "firebase/auth";
 import { firebaseAuth } from "@/config/fireabase.config";
-import { FirebaseService } from "@/services/auth.services";
+import { FirebaseService, type AuthService } from "@/services/auth.services";
 
 export const useUserStore = defineStore("mes_user", () => {
   const m_mesUser = ref<MesUser>();
   const m_isLoading = ref(false);
-  const m_authSvc = new FirebaseService();
+  const m_authSvc: AuthService = new FirebaseService();
   function setUser(mesUser: MesUser | undefined) {
     m_mesUser.value = mesUser;
   }
@@ -23,7 +23,7 @@ export const useUserStore = defineStore("mes_user", () => {
 
   function init() {
     return new Promise((resolve) => {
-      onAuthStateChanged(firebaseAuth, (user) => {
+      const subscribe = onAuthStateChanged(firebaseAuth, (user) => {
         if (user) {
           setUser({
             userId: user.uid,
@@ -38,6 +38,8 @@ export const useUserStore = defineStore("mes_user", () => {
           setUser(undefined);
           resolve(null);
         }
+
+        subscribe()
       });
     });
   }
@@ -48,11 +50,24 @@ export const useUserStore = defineStore("mes_user", () => {
       .DoLoginByEmailPassword(email, password)
       .then((user) => {
         ToggleLoading();
+        setUser({
+          userId: user.uid,
+          userName: user.displayName,
+          userEmail: user.email,
+          dept: user.refreshToken,
+          permission: user.providerId,
+        });
+
       })
       .catch((err) => {
         alert(err);
         ToggleLoading();
       });
+  }
+
+  function Logout(){
+    m_authSvc.DoLogout()
+    m_mesUser.value = undefined
   }
 
   function ToggleLoading() {
@@ -66,6 +81,7 @@ export const useUserStore = defineStore("mes_user", () => {
     init,
     DoLoginByEmailPassword,
     ToggleLoading,
+    Logout,
     m_isLoading,
   };
 });

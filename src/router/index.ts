@@ -1,4 +1,5 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { useUserStore } from '@/stores/user'
+import { createRouter, createWebHistory, type NavigationGuardNext, type RouteLocationNormalized } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 
 const router = createRouter({
@@ -7,7 +8,10 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView
+      component: HomeView,
+      meta: {
+        requiredAuth: true
+      }
     },
     {
       path: '/login',
@@ -18,6 +22,20 @@ const router = createRouter({
       component: () => import('../views/LoginView.vue')
     }
   ]
+})
+
+router.beforeEach((to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext) => {
+
+  const useUser = useUserStore()
+
+  if ((to.meta.requiredAuth && useUser.getUser().value !== undefined) || to.name == 'login') {
+    console.log("ddd")
+    next();
+  } else {
+    next({
+      name : "login"
+    })
+  }
 })
 
 export default router
