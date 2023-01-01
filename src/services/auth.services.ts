@@ -1,26 +1,52 @@
 import { firebaseAuth } from "@/config/fireabase.config";
-import type { MesUser } from "@/config/MesUser";
-import { signInWithEmailAndPassword, signOut } from "firebase/auth";
+import type { FirebaseAuthResponse, MesUser } from "@/config/MesUser";
+import {
+  signInWithEmailAndPassword,
+  signOut,
+  type UserCredential,
+} from "firebase/auth";
 
 export interface AuthService {
-  ProviderName: string
+  ProviderName: string;
 
-  DoLoginByEmailPassword(username: string, password: string): Promise<any>
+  DoLoginByEmailPassword(username: string, password: string): any;
 
-  DoLogout(): void
+  DoLogout(): void;
 }
 
+/**
+ *
+ * */
 export class FirebaseService implements AuthService {
   ProviderName: string = "Firebase";
-  constructor() {
-  }
+  constructor() {}
 
   async DoLoginByEmailPassword(username: string, password: string) {
-    var user = await signInWithEmailAndPassword(firebaseAuth, username, password)
-    return user.user
+    let response: FirebaseAuthResponse = {
+      user: undefined,
+      msg_code: 0,
+      msg_message: "NULL"
+    };
+    try {
+      let res = await signInWithEmailAndPassword(
+        firebaseAuth,
+        username,
+        password
+      );
+      response.user = res.user;
+      response.msg_code = 200
+      response.msg_message = "OK./"
+    } catch (error) {
+      response = {
+        user : undefined,
+        msg_code: 403,
+        msg_message: error.message
+      };
+    }
+    return response;
   }
 
   async DoLogout() {
-    signOut(firebaseAuth)
+    signOut(firebaseAuth);
   }
 }

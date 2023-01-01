@@ -1,20 +1,33 @@
 <script setup lang="ts">
+import type { FirebaseAuthResponse } from "@/config/MesUser";
 import router from "@/router";
 import { useUserStore } from "@/stores/user";
-import { ref } from "vue"
+import { ref } from "vue";
 
 const userName = ref("");
-const userPassword  = ref("");
+const userPassword = ref("");
 const userStore = useUserStore();
 
-function DoLogin(payload: MouseEvent) {
+async function DoLogin(payload: MouseEvent) {
   payload.preventDefault();
-  console.log(`User ${userName.value} `)
-  userStore.DoLoginByEmailPassword(userName.value, userPassword.value);
+  console.log(`User ${userName.value} `);
+
+  var _res: FirebaseAuthResponse = await userStore.DoLoginByEmailPassword(
+    userName.value,
+    userPassword.value
+  );
+  if (_res.msg_code !== 200) alert(_res.msg_message);
+  else {
+    userStore.setUser({
+      userId: _res.user?.uid,
+      userEmail: _res.user?.email,
+      userName: _res.user?.displayName,
+      dept: "IT",
+      permission: "ALL"
+    })
+  }
+  router.push("/")
 }
-router.push({
-  name: "home"
-})
 </script>
 
 <template>
@@ -42,7 +55,7 @@ router.push({
         />
         <div>
           <button name="btnLogin" v-on:click="DoLogin">
-            {{ userStore.m_isLoading ? "Waitting..." : "Login" }}
+            {{ userStore.m_isBusy ? "Waitting..." : "Login" }}
           </button>
         </div>
       </form>

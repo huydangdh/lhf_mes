@@ -1,14 +1,15 @@
 import { ref, computed } from "vue";
 import { defineStore } from "pinia";
-import type { MesUser } from "@/config/MesUser";
+import type { FirebaseAuthResponse, MesUser } from "@/config/MesUser";
 import { onAuthStateChanged } from "firebase/auth";
 import { firebaseAuth } from "@/config/fireabase.config";
 import { FirebaseService, type AuthService } from "@/services/auth.services";
 
 export const useUserStore = defineStore("mes_user", () => {
   const m_mesUser = ref<MesUser>();
-  const m_isLoading = ref(false);
+  const m_isBusy = ref(false);
   const m_authSvc: AuthService = new FirebaseService();
+
   function setUser(mesUser: MesUser | undefined) {
     m_mesUser.value = mesUser;
   }
@@ -44,25 +45,11 @@ export const useUserStore = defineStore("mes_user", () => {
     });
   }
 
-  function DoLoginByEmailPassword(email: string, password: string) {
-    ToggleLoading();
-    m_authSvc
-      .DoLoginByEmailPassword(email, password)
-      .then((user) => {
-        ToggleLoading();
-        setUser({
-          userId: user.uid,
-          userName: user.displayName,
-          userEmail: user.email,
-          dept: user.refreshToken,
-          permission: user.providerId,
-        });
-
-      })
-      .catch((err) => {
-        alert(err);
-        ToggleLoading();
-      });
+  async function DoLoginByEmailPassword(email: string, password: string): Promise<MesResponse> {
+    ToggleBusy();
+    let _res: FirebaseAuthResponse = await m_authSvc.DoLoginByEmailPassword(email,password);
+    ToggleBusy();
+    return _res;
   }
 
   function Logout(){
@@ -70,8 +57,8 @@ export const useUserStore = defineStore("mes_user", () => {
     m_mesUser.value = undefined
   }
 
-  function ToggleLoading() {
-    m_isLoading.value = !m_isLoading.value;
+  function ToggleBusy() {
+    m_isBusy.value = !m_isBusy.value;
   }
 
   return {
@@ -80,8 +67,8 @@ export const useUserStore = defineStore("mes_user", () => {
     clearUser,
     init,
     DoLoginByEmailPassword,
-    ToggleLoading,
+    ToggleBusy,
     Logout,
-    m_isLoading,
+    m_isBusy,
   };
 });
