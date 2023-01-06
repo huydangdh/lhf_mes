@@ -7,6 +7,10 @@ import router from "./router";
 import { onAuthStateChanged } from "firebase/auth";
 import { firebaseAuth } from "./config/fireabase.config";
 
+import "bootstrap"
+import "bootstrap/dist/css/bootstrap.css"
+
+
 let app: App<Element>;
 
 onAuthStateChanged(firebaseAuth, (user) => {
