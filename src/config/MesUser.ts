@@ -1,11 +1,11 @@
 import type { User } from "firebase/auth";
 
 export declare interface MesUser {
-  userId: string;
-  userName: string | null;
-  userEmail: string | null;
-  dept: string | null;
-  permission: string | null;
+  userId: string | undefined;
+  userName: string | undefined;
+  userEmail: string | undefined;
+  dept: string | undefined;
+  permission: string | undefined;
 }
 
 export declare interface FirebaseAuthResponse {

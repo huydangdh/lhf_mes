@@ -15,7 +15,7 @@ export const useUserStore = defineStore("mes_user", () => {
   }
 
   function getUser() {
-    return m_mesUser;
+    return m_mesUser.value;
   }
 
   function clearUser() {
