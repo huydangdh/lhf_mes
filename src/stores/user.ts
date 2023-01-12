@@ -4,6 +4,7 @@ import type { FirebaseAuthResponse, MesUser } from "@/config/MesUser";
 import { onAuthStateChanged } from "firebase/auth";
 import { firebaseAuth } from "@/config/fireabase.config";
 import { FirebaseService, type AuthService } from "@/services/auth.services";
+import { getFakeMesUserData } from "@/util/fakeResponse.util";
 
 export const useUserStore = defineStore("mes_user", () => {
   const m_mesUser = ref<MesUser>();
@@ -30,8 +31,9 @@ export const useUserStore = defineStore("mes_user", () => {
             userId: user.uid,
             userName: user.displayName,
             userEmail: user.email,
-            dept: user.refreshToken,
+            dept: "IT",
             permission: user.providerId,
+            menu: getFakeMesUserData,
           });
 
           resolve(user);
@@ -40,21 +42,27 @@ export const useUserStore = defineStore("mes_user", () => {
           resolve(null);
         }
 
-        subscribe()
+        subscribe();
       });
     });
   }
 
-  async function DoLoginByEmailPassword(email: string, password: string): Promise<MesResponse> {
+  async function DoLoginByEmailPassword(
+    email: string,
+    password: string
+  ): Promise<FirebaseAuthResponse> {
     ToggleBusy();
-    let _res: FirebaseAuthResponse = await m_authSvc.DoLoginByEmailPassword(email,password);
+    let _res: FirebaseAuthResponse = await m_authSvc.DoLoginByEmailPassword(
+      email,
+      password
+    );
     ToggleBusy();
     return _res;
   }
 
-  function Logout(){
-    m_authSvc.DoLogout()
-    m_mesUser.value = undefined
+  function Logout() {
+    m_authSvc.DoLogout();
+    m_mesUser.value = undefined;
   }
 
   function ToggleBusy() {

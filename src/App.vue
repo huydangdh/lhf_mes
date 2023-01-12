@@ -20,7 +20,7 @@ userStore.init();
     <HelloWorld msg="MES_SYSTEM" />
     <div>
       <RouterLink to="/">Home</RouterLink>
-      <RouterLink v-if="!userStore.getUser().value" to="/login">Login</RouterLink>
+      <RouterLink v-if="!userStore.getUser()" to="/login">Login</RouterLink>
     </div>
   </div>
   <RouterView />
