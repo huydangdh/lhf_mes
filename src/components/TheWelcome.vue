@@ -3,9 +3,10 @@ import WelcomeItem from "./WelcomeItem.vue";
 import DocumentationIcon from "./icons/IconDocumentation.vue";
 import { useUserStore } from "@/stores/user";
 import { getFakeMesUserData } from "@/util/fakeResponse.util";
+import router from "@/router";
+import { RouterLink } from "vue-router";
 
 const userStore = useUserStore();
-const userMenu = userStore.getUser()?.menu;
 
 function DoTestSetUser(payload: MouseEvent) {
   userStore.setUser({
@@ -24,6 +25,7 @@ function DoTestClearUser(payload: MouseEvent) {
 
 function DoTestLogout() {
   userStore.Logout();
+  router.push("login")
 }
 </script>
 
@@ -57,14 +59,14 @@ function DoTestLogout() {
         </div>
       </div>
     </div>
-    <div class="card mb-3" v-for="menu in userMenu" style="">
+    <div class="card mb-3" v-for="menu in userStore.getUser()?.menu" style="">
       <img src="..." class="card-img-top" alt="..." />
       <div class="card-body">
         <h5 class="card-title">{{menu.title}}</h5>
         <p class="card-text">
           {{menu.desc}}
         </p>
-        <a :href=menu.root.url class="btn btn-primary">GO ==> </a>
+        <RouterLink :to=menu.root.url class="btn btn-primary">GO ==> </RouterLink>
       </div>
     </div>
   </div>

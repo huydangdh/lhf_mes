@@ -1,12 +1,16 @@
 import type { Menu } from "@/config/MesUser";
 
+export function getFakeMenuRouter(){
+
+}
+
 export const getFakeMesUserData: Menu[] = [
   {
     id_menu: "001",
     title: "CONFIG",
     desc: "CONFIG FAKE",
     root: {
-      id_menu: "r_config_mnu_001",
+      id_menu: "r_config_menu_001",
       desc: "CONFIG MES",
       title: "CONFIG MES",
       url: "/app/config_mes",

@@ -16,7 +16,7 @@ const router = createRouter({
       component: HomeView,
       meta: {
         requiredAuth: true,
-      },
+      } 
     },
     {
       path: "/login",
@@ -28,6 +28,8 @@ const router = createRouter({
     },
   ],
 });
+
+router.addRoute({path:"/app/config_mes",component: () => import("../components/app/config_mes.vue"),name:"config_mes"})
 
 router.beforeEach(
   (
