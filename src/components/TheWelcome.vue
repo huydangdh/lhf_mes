@@ -25,7 +25,7 @@ function DoTestClearUser(payload: MouseEvent) {
 
 function DoTestLogout() {
   userStore.Logout();
-  router.push("login")
+  router.push("login");
 }
 </script>
 
@@ -59,14 +59,20 @@ function DoTestLogout() {
         </div>
       </div>
     </div>
-    <div class="card mb-3" v-for="menu in userStore.getUser()?.menu" style="">
-      <img src="..." class="card-img-top" alt="..." />
-      <div class="card-body">
-        <h5 class="card-title">{{menu.title}}</h5>
-        <p class="card-text">
-          {{menu.desc}}
-        </p>
-        <RouterLink :to=menu.root.url class="btn btn-primary">GO ==> </RouterLink>
+    <div class="row">
+      <div class="col col-md-3" v-for="menu in userStore.getUser()?.menu">
+        <div class="card mb-3" style="">
+          <img src="..." class="card-img-top" alt="..." />
+          <div class="card-body">
+            <h5 class="card-title">{{ menu.title }}</h5>
+            <p class="card-text">
+              {{ menu.desc }}
+            </p>
+            <RouterLink :to="menu.root.url" class="btn btn-primary"
+              >GO ==>
+            </RouterLink>
+          </div>
+        </div>
       </div>
     </div>
   </div>

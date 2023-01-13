@@ -4,7 +4,8 @@ import type { FirebaseAuthResponse, MesUser } from "@/config/MesUser";
 import { onAuthStateChanged } from "firebase/auth";
 import { firebaseAuth } from "@/config/fireabase.config";
 import { FirebaseService, type AuthService } from "@/services/auth.services";
-import { getFakeMesUserData } from "@/util/fakeResponse.util";
+import { getFakeMenuRouter, getFakeMesUserData } from "@/util/fakeResponse.util";
+import router from "@/router";
 
 export const useUserStore = defineStore("mes_user", () => {
   const m_mesUser = ref<MesUser>();
@@ -35,7 +36,8 @@ export const useUserStore = defineStore("mes_user", () => {
             permission: user.providerId,
             menu: getFakeMesUserData,
           });
-
+          
+          // set menu
           resolve(user);
         } else {
           setUser(undefined);

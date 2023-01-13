@@ -1,7 +1,18 @@
 import type { Menu } from "@/config/MesUser";
+import type { RouteRecordRaw } from "vue-router";
 
-export function getFakeMenuRouter(){
+export function getFakeMenuRouter() : RouteRecordRaw[] {
+  let _tmpRouterRecord: Array<RouteRecordRaw> = new Array<RouteRecordRaw>;
 
+  getFakeMesUserData.forEach(element => {
+    _tmpRouterRecord.push({
+      name: element.root.id_menu,
+      path: element.root.url,
+      component: () => import(`../components${element.root.url}.vue`)
+    })
+  });
+
+  return _tmpRouterRecord;
 }
 
 export const getFakeMesUserData: Menu[] = [
