@@ -22,7 +22,7 @@ export declare interface MesUser {
   userName: string | null | undefined;
   userEmail: string | null | undefined;
   dept: string | undefined;
-  permission: string | undefined;
+  permission: string[] | undefined;
   menu: Array<Menu>;
 }
 

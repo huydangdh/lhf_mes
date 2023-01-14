@@ -5,6 +5,7 @@ import { useUserStore } from "@/stores/user";
 import { getFakeMesUserData } from "@/util/fakeResponse.util";
 import router from "@/router";
 import { RouterLink } from "vue-router";
+import { MES_APP_ROLE } from "@/config/MesRole.config";
 
 const userStore = useUserStore();
 
@@ -15,7 +16,7 @@ function DoTestSetUser(payload: MouseEvent) {
     userEmail: "dqh.dhtb@gmail.com",
     dept: "FB",
     menu: getFakeMesUserData,
-    permission: "CONFIG|RUN_APP|REMOVE_MAT",
+    permission: [MES_APP_ROLE.ACCESS_CONFIG_APP, MES_APP_ROLE.CONFIG_APP_ADD],
   });
 }
 
@@ -26,6 +27,11 @@ function DoTestClearUser(payload: MouseEvent) {
 function DoTestLogout() {
   userStore.Logout();
   router.push("login");
+}
+
+function BeforeLunchApp(input: Object) {
+  // ver
+  
 }
 </script>
 
@@ -68,8 +74,13 @@ function DoTestLogout() {
             <p class="card-text">
               {{ menu.desc }}
             </p>
+            <!-- <button class="btn btn-primary" v-on:click="BeforeLunchApp({
+              to: menu.root.url
+            })">
+              RUN ==>
+            </button> -->
             <RouterLink :to="menu.root.url" class="btn btn-primary"
-              >GO ==>
+              >LUNCH ==>
             </RouterLink>
           </div>
         </div>

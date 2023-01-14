@@ -20,6 +20,10 @@ export const useUserStore = defineStore("mes_user", () => {
     return m_mesUser.value;
   }
 
+  function getUserPermission() {
+    return m_mesUser.value?.permission;
+  }
+
   function clearUser() {
     m_mesUser.value = undefined;
   }
@@ -33,7 +37,7 @@ export const useUserStore = defineStore("mes_user", () => {
             userName: user.displayName,
             userEmail: user.email,
             dept: "IT",
-            permission: user.providerId,
+            permission: ["ACCESS_CONFIG_APP"],
             menu: getFakeMesUserData,
           });
           
@@ -74,6 +78,7 @@ export const useUserStore = defineStore("mes_user", () => {
   return {
     getUser,
     setUser,
+    getUserPermission,
     clearUser,
     init,
     DoLoginByEmailPassword,
