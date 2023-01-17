@@ -73,9 +73,9 @@ async function DoQuery(params: Event) {
         </tr>
         <tr v-for="userWrkTime in userWrkTimes">
           <td>{{userWrkTime.get("emp_no")}}</td>
-          <td>{{userWrkTime.get("start_time").toDate().toLocaleString('en-GB', { timeZone: 'UTC' })}}</td>
-          <td>{{userWrkTime.get("end_time").toDate().toLocaleString('en-GB', { timeZone: 'UTC' })}}</td>
-          <td>{{userWrkTime.get("jiaban_time").toDate().toLocaleString('en-GB', { timeZone: 'UTC' })}}</td>
+          <td>{{userWrkTime.get("start_time").toDate().toLocaleString('en-GB')}}</td>
+          <td>{{userWrkTime.get("end_time").toDate().toLocaleString('en-GB')}}</td>
+          <td>{{userWrkTime.get("jiaban_time").toDate().toLocaleString('en-GB')}}</td>
         </tr>
       </table>
     </form>

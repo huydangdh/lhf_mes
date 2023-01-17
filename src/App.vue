@@ -11,7 +11,7 @@ userStore.init();
   <div class="">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">Navbar</a>
+        <a class="navbar-brand" href="#">HUY_MES</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -37,7 +37,7 @@ userStore.init();
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                Dropdown
+                Unknow
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <li>
