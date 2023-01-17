@@ -68,7 +68,7 @@ function BeforeLunchApp(input: Object) {
     <div class="row">
       <div class="col col-md-3" v-for="menu in userStore.getUser()?.menu">
         <div class="card mb-3" style="">
-          <img src="..." class="card-img-top" alt="..." />
+          <img src="https://e7.pngegg.com/pngimages/566/36/png-clipart-app-store-iphone-apple-app-store-icon-blue-text.png" class="card-img-top" alt="app" />
           <div class="card-body">
             <h5 class="card-title">{{ menu.title }}</h5>
             <p class="card-text">
