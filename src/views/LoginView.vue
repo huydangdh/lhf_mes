@@ -25,7 +25,7 @@ async function DoLogin(payload: MouseEvent) {
       userName: _res.user?.displayName,
       dept: "IT",
       menu: getFakeMesUserData,
-      permission:  ["ACCESS_CONFIG_APP"],
+      permission:  ["ACCESS_CONFIG_APP",'TG_KPI_APP_ADD'],
     });
   }
   router.push("/");

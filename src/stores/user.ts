@@ -1,11 +1,7 @@
-import { ref, computed } from "vue";
+import { ref } from "vue";
 import { defineStore } from "pinia";
 import type { FirebaseAuthResponse, MesUser } from "@/config/MesUser";
-import { onAuthStateChanged } from "firebase/auth";
-import { firebaseAuth } from "@/config/fireabase.config";
-import { FirebaseService, type AuthService } from "@/services/auth.services";
-import { getFakeMenuRouter, getFakeMesUserData } from "@/util/fakeResponse.util";
-import router from "@/router";
+import { FirebaseService } from "@/services/auth.services";
 
 export const useUserStore = defineStore("mes_user", () => {
   const m_mesUser = ref<MesUser>();

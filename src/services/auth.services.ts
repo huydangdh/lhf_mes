@@ -67,7 +67,7 @@ export class FirebaseService implements AuthService {
             userName: user.displayName,
             userEmail: user.email,
             dept: "IT",
-            permission: ["ACCESS_CONFIG_APP"],
+            permission: ["ACCESS_CONFIG_APP",'ACCESS_TG_KPI_APP'],
             menu: getFakeMesUserData,
           });
 

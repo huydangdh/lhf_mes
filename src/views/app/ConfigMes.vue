@@ -31,7 +31,7 @@ async function DoSendData(event: Event) {
       emp_no: userId,
       start_time: Timestamp.fromDate(dtShangBan.value),
       end_time: Timestamp.fromDate(dtXiaBan.value),
-      jiaban_time: Timestamp.fromDate(dtXiaBan.value),
+      jiaban_time: "",
       misc: "BETA",
     });
     useUserStore().ToggleBusy();
