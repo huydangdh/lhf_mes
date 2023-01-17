@@ -43,7 +43,7 @@ export class FirebaseService implements AuthService {
       response.user = res.user;
       response.msg_code = 200;
       response.msg_message = "OK./";
-    } catch (error) {
+    } catch (error : any) {
       response = {
         user: undefined,
         msg_code: 403,
@@ -57,7 +57,7 @@ export class FirebaseService implements AuthService {
     signOut(firebaseAuth);
   }
 
-  Init(): Promise<User> {
+  Init(): Promise<User | undefined> {
     return new Promise((resolve) => {
       let userStore = useUserStore();
       const subscribe = onAuthStateChanged(firebaseAuth, (user) => {
