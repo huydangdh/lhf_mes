@@ -10,6 +10,7 @@ import { firebaseAuth } from "./config/fireabase.config";
 import "bootstrap"
 import "bootstrap/dist/css/bootstrap.css"
 
+import '@vuepic/vue-datepicker/dist/main.css'
 
 let app: App<Element>;
 
@@ -19,7 +20,6 @@ onAuthStateChanged(firebaseAuth, (user) => {
     const pinia = createPinia()
     app.use(pinia);
     app.use(router);
-
     app.mount("#app");
   }
 });

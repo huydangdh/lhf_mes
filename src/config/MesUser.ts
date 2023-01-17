@@ -31,3 +31,12 @@ export declare interface FirebaseAuthResponse {
   msg_code: number;
   msg_message: string;
 }
+
+
+export declare interface MesUserWorkTime {
+  userId: string;
+  startTime: Date,
+  endTime: Date,
+  jiabanTime: Date,
+  misc: string
+}

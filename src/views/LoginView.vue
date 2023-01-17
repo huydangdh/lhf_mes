@@ -25,7 +25,7 @@ async function DoLogin(payload: MouseEvent) {
       userName: _res.user?.displayName,
       dept: "IT",
       menu: getFakeMesUserData,
-      permission: _res.user?.providerId,
+      permission:  ["ACCESS_CONFIG_APP"],
     });
   }
   router.push("/");

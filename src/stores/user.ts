@@ -10,7 +10,7 @@ import router from "@/router";
 export const useUserStore = defineStore("mes_user", () => {
   const m_mesUser = ref<MesUser>();
   const m_isBusy = ref(false);
-  const m_authSvc: AuthService = new FirebaseService();
+  const m_authSvc = new FirebaseService();
 
   function setUser(mesUser: MesUser | undefined) {
     m_mesUser.value = mesUser;
@@ -29,28 +29,7 @@ export const useUserStore = defineStore("mes_user", () => {
   }
 
   function init() {
-    return new Promise((resolve) => {
-      const subscribe = onAuthStateChanged(firebaseAuth, (user) => {
-        if (user) {
-          setUser({
-            userId: user.uid,
-            userName: user.displayName,
-            userEmail: user.email,
-            dept: "IT",
-            permission: ["ACCESS_CONFIG_APP"],
-            menu: getFakeMesUserData,
-          });
-          
-          // set menu
-          resolve(user);
-        } else {
-          setUser(undefined);
-          resolve(null);
-        }
-
-        subscribe();
-      });
-    });
+    return m_authSvc.Init();
   }
 
   async function DoLoginByEmailPassword(
