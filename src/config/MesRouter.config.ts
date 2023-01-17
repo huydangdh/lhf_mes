@@ -20,7 +20,7 @@ function beforeRunApp(
   if (!userStore.getUser()) next({ name: "login" });
   // check permission
   else {
-    let userPermission = userStore.getUserPermission();
+    let userPermission : any = userStore.getUserPermission();
     if (userPermission?.includes(to.meta.permission)) {
       next();
     } else {
