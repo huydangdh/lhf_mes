@@ -6,6 +6,14 @@ import vue from '@vitejs/plugin-vue'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [vue()],
+  build:{
+    sourcemap: true,
+    minify:true,
+    target: "ES6"
+  },
+  preview:{
+    
+  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
