@@ -28,12 +28,12 @@ export const useUserStore = defineStore("mes_user", () => {
     return m_authSvc.Init();
   }
 
-  async function DoLoginByEmailPassword(
+  async function DoLogin(
     email: string,
     password: string
   ): Promise<FirebaseAuthResponse> {
     ToggleBusy();
-    let _res: FirebaseAuthResponse = await m_authSvc.DoLoginByEmailPassword(
+    let _res: FirebaseAuthResponse = await m_authSvc.DoLogin(
       email,
       password
     );
@@ -50,15 +50,19 @@ export const useUserStore = defineStore("mes_user", () => {
     m_isBusy.value = !m_isBusy.value;
   }
 
+  function IsBusy(){
+    return m_isBusy.value;
+  }
+
   return {
     getUser,
     setUser,
     getUserPermission,
     clearUser,
     init,
-    DoLoginByEmailPassword,
+    DoLoginByEmailPassword: DoLogin,
     ToggleBusy,
     Logout,
-    m_isBusy,
+    IsBusy() : IsBusy,
   };
 });

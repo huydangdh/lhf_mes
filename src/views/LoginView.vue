@@ -17,18 +17,21 @@ async function DoLogin(payload: MouseEvent) {
     userName.value,
     userPassword.value
   );
-  if (_res.msg_code !== 200) alert(_res.msg_message);
-  else {
+  if (_res.msg_code !== 200) {
+    alert(_res.msg_message);
+    return;
+  } else {
     userStore.setUser({
       userId: _res.user?.uid,
       userEmail: _res.user?.email,
       userName: _res.user?.displayName,
       dept: "IT",
       menu: getFakeMesUserData,
-      permission:  ["ACCESS_CONFIG_APP",'TG_KPI_APP_ADD'],
+      permission: ["ACCESS_CONFIG_APP", "TG_KPI_APP_ADD"],
     });
+
+    router.push("/");
   }
-  router.push("/");
 }
 </script>
 
@@ -66,8 +69,13 @@ async function DoLogin(payload: MouseEvent) {
         <label class="form-check-label" for="exampleCheck1">Re</label>
       </div>
       <div>
-        <button name="btnLogin" class="btn btn-primary" v-on:click="DoLogin">
-          {{ userStore.m_isBusy ? "Waitting..." : "Login" }}
+        <button
+          name="btnLogin"
+          class="btn btn-primary"
+          :disabled="useUserStore().IsBusy()"
+          v-on:click="DoLogin"
+        >
+          {{ userStore.IsBusy() ? "Waitting..." : "Login" }}
         </button>
       </div>
     </form>

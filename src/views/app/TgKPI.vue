@@ -61,8 +61,8 @@ async function DoQuery(params: Event) {
           locale="zh-Hant"
         ></date-picker>
       </div>
-      <button type="submit" class="btn btn-primary" :disabled="useUserStore().m_isBusy" v-on:click="DoQuery">
-        {{ useUserStore().m_isBusy ? "Waitting..." : "Query ==>" }}
+      <button type="submit" class="btn btn-primary" :disabled="useUserStore().IsBusy()" v-on:click="DoQuery">
+        {{ useUserStore().IsBusy() ? "Waitting..." : "Query ==>" }}
       </button>
       <table class="tblUserWrkTime mt-3">
         <tr>

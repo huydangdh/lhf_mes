@@ -13,7 +13,7 @@ import {
 export interface AuthService {
   ProviderName: string;
 
-  DoLoginByEmailPassword(username: string, password: string): any;
+  DoLogin(username: string, password: string): any;
 
   DoLogout(): void;
 
@@ -28,7 +28,7 @@ export class FirebaseService implements AuthService {
 
   constructor() {}
 
-  async DoLoginByEmailPassword(username: string, password: string) {
+  async DoLogin(username: string, password: string) {
     let response: FirebaseAuthResponse = {
       user: undefined,
       msg_code: 0,

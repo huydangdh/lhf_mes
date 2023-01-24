@@ -1,23 +1,15 @@
 <script setup lang="ts">
-import { firestoreDb } from "@/config/fireabase.config";
-import type { MesUserWorkTime } from "@/config/MesUser";
 import router from "@/router";
+import { ConfigMes } from "@/services/ConfigMes.servies";
 import { useUserStore } from "@/stores/user";
 import DatePicker from "@vuepic/vue-datepicker";
-import {
-  addDoc,
-  collection,
-  CollectionReference,
-  doc,
-  getDoc,
-  setDoc,
-  Timestamp,
-} from "firebase/firestore";
+import { Timestamp } from "firebase/firestore";
 import { ref } from "vue";
 
 const dtShangBan = ref(new Date());
 const dtXiaBan = ref(new Date());
-const userWrkTime = collection(firestoreDb, "user_work_time");
+
+const m_ConfigMes = new ConfigMes();
 
 async function DoSendData(event: Event) {
   event.preventDefault();
@@ -27,17 +19,15 @@ async function DoSendData(event: Event) {
   let userId = useUserStore().getUser()?.userId;
   try {
     useUserStore().ToggleBusy();
-    await addDoc(userWrkTime, {
-      emp_no: userId,
-      start_time: Timestamp.fromDate(dtShangBan.value),
-      end_time: Timestamp.fromDate(dtXiaBan.value),
-      jiaban_time: "",
-      misc: "BETA",
+    let _res = await m_ConfigMes.Execute({
+      start_time: start_time,
+      end_time: end_time,
+      jiaban_time: jiaban_time,
+      user_id: userId,
     });
     useUserStore().ToggleBusy();
-    alert("ADD [OK]");
-    router.replace({name: 'home'})
-
+    alert("[I] ADD OK!");
+    router.replace({ name: "home" });
   } catch (error) {
     alert(error);
   }
@@ -45,13 +35,6 @@ async function DoSendData(event: Event) {
 
 async function DoTestSetDoc(params: Event) {
   params.preventDefault();
-  addDoc(userWrkTime, {
-    emp_no: "V00001",
-    start_time: Timestamp.fromDate(dtShangBan.value),
-    end_time: Timestamp.fromDate(dtXiaBan.value),
-    jiaban_time: Timestamp.fromDate(dtXiaBan.value),
-    misc: "id_002",
-  });
 }
 </script>
 <template>
@@ -60,7 +43,6 @@ async function DoTestSetDoc(params: Event) {
       <div class="mb-3 mt-3">
         <label class="form-label" for="dtShangBan">ShangBan:</label>
         <DatePicker
-
           v-model="dtShangBan"
           id="dtShangBan"
           name="dtShangBan"
@@ -80,8 +62,8 @@ async function DoTestSetDoc(params: Event) {
           auto-apply
         ></DatePicker>
       </div>
-      <button type="submit" class="btn btn-primary" v-on:click="DoSendData">
-        {{ useUserStore().m_isBusy ? "Waitting..." : "Send ==>" }}
+      <button type="submit" class="btn btn-primary" :disabled="useUserStore().IsBusy()" v-on:click="DoSendData">
+        {{ useUserStore().IsBusy() ? "Waitting..." : "Send ==>" }}
       </button>
       <button type="submit" class="btn btn-success" v-on:click="DoTestSetDoc">
         DoTestSetDoc
