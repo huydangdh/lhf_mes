@@ -63,6 +63,6 @@ export const useUserStore = defineStore("mes_user", () => {
     DoLoginByEmailPassword: DoLogin,
     ToggleBusy,
     Logout,
-    IsBusy() : IsBusy,
+    IsBusy,
   };
 });

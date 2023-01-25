@@ -37,7 +37,7 @@ function BeforeLunchApp(input: Object) {
 
 <template>
   <div class="container">
-    <div><b>[DEBUG[I]] : </b>{{ userStore.getUser() }}</div>
+    <!-- <div><b>[DEBUG[I]] : </b>{{ userStore.getUser() }}</div> -->
     <div>
       <div class="card mb-3">
         <div class="card-body">
@@ -66,7 +66,7 @@ function BeforeLunchApp(input: Object) {
       </div>
     </div>
     <div class="row">
-      <div class="col col-md-3" v-for="menu in userStore.getUser()?.menu">
+      <div class="col col-6 col-md-3 col-lg-2" v-for="menu in userStore.getUser()?.menu">
         <div class="card mb-3" style="">
           <img src="https://e7.pngegg.com/pngimages/566/36/png-clipart-app-store-iphone-apple-app-store-icon-blue-text.png" class="card-img-top" alt="app" />
           <div class="card-body">

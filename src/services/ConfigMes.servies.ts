@@ -5,11 +5,8 @@ import {
   collection,
   CollectionReference,
   Timestamp,
-  type DocumentData,
   type Firestore,
 } from "firebase/firestore";
-import { resolve } from "path";
-import type { Store } from "pinia";
 
 export interface CommonService {
   ServiceName: string;
